@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F6F8;--surface:#FFFFFF;--ink:#141B2D;--muted:#5C6578;--line:#E1E5EC;--accent:#3B5BDB;--accent-ink:#FFFFFF;--soft:#EBEFFA;--as:62%;--al:90%;--al2:80%;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1119;--surface:#161C2A;--ink:#E8ECF6;--muted:#9AA5BE;--line:#263047;--accent:#8FA8FF;--accent-ink:#0D1119;--soft:#1D2640;--as:38%;--al:25%;--al2:17%;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1119;--surface:#161C2A;--ink:#E8ECF6;--muted:#9AA5BE;--line:#263047;--accent:#8FA8FF;--accent-ink:#0D1119;--soft:#1D2640;--as:38%;--al:25%;--al2:17%;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;margin:0;line-height:1.1}
+.wrap{max-width:1000px;margin:0 auto;padding:36px 18px 56px}
+.date{color:var(--muted);margin:0 0 4px;font-weight:500}
+h1{font-size:clamp(2.2rem,7vw,3.4rem);letter-spacing:-.025em}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:24px 0 20px}
+.search{position:relative;flex:1 1 260px;max-width:420px}
+.search input{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 44px 12px 16px}
+.search kbd{position:absolute;right:12px;top:50%;transform:translateY(-50%);font:600 .75rem Figtree,sans-serif;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+@media (hover:none){.search kbd{display:none}}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:500 .92rem Figtree,sans-serif;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.resume{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:var(--soft);border-radius:16px;padding:14px 18px;margin-bottom:20px}
+.resume b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.1rem}
+.resume a{font-weight:600;text-decoration:none;color:var(--accent-ink);background:var(--accent);padding:8px 18px;border-radius:10px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.app{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.app>a{display:block;color:inherit;text-decoration:none;height:100%}
+.art{height:150px;background:linear-gradient(135deg,hsl(var(--h) var(--as) var(--al)),hsl(var(--h) var(--as) var(--al2)))}
+.art svg{display:block;width:100%;height:100%}
+.body{padding:16px 18px 18px}
+.body h2{font-size:1.4rem;margin-bottom:6px}
+.body p{margin:0 0 12px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:center}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.78rem;font-weight:600;color:var(--muted);background:var(--bg);border-radius:999px;padding:2px 10px}
+.go{font-weight:600;color:var(--accent)}
+.pin{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:#141B2D;font-size:1.15rem;cursor:pointer;line-height:1}
+.pin[aria-pressed="true"]{background:#F4C430}
+.badge{position:absolute;top:14px;left:14px;font-size:.75rem;font-weight:700;background:#F4C430;color:#141B2D;border-radius:999px;padding:2px 10px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:48px 0}
+.empty button{margin-top:10px;font:600 .95rem Figtree,sans-serif;padding:8px 16px;border-radius:10px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+.hint{margin-top:28px;color:var(--muted);font-size:.88rem;text-align:center}
+@media (prefers-reduced-motion:no-preference){.app{transition:transform .18s,box-shadow .18s}.app:hover{transform:translateY(-4px);box-shadow:0 14px 30px -14px rgba(20,27,45,.35)}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="date" id="date"></p>
+  <h1 id="hello">Hello</h1>
+  <div class="tools">
+    <div class="search"><input type="search" id="q" placeholder="Search your apps" aria-label="Search apps"><kbd>/</kbd></div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
+  </div>
+  <div id="resume"></div>
+  <div class="grid" id="grid" aria-live="polite"></div>
+  <p class="hint">Tap the star on an app to pin it to the top.</p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const APPS=[
+{id:"solar",name:"Solar System",desc:"Watch the planets orbit at real relative speeds, then tap any world to explore it.",tags:["Space"],url:"https://claude.ai/artifact/RTw1bMLgoHXA7jFQNTZwb7",h:235},
+{id:"periodic",name:"Periodic Table",desc:"All 118 elements, each with a 3D atom model you can spin.",tags:["Chemistry"],url:"https://claude.ai/artifact/D7bAviCmoL7zg5YurijBCU",h:190},
+{id:"molecule",name:"Molecule Builder",desc:"Explore molecules in 3D, or pick atoms and watch them bond.",tags:["Chemistry"],url:"https://claude.ai/artifact/CWCyPw9THLnwe2mW5nDorn",h:160},
+{id:"gravity",name:"Gravity Sandbox",desc:"Launch planets and stars and watch gravity bend their paths.",tags:["Physics","Space"],url:"https://claude.ai/artifact/S5EJPwzGoYiAeLrQaXdtyd",h:265},
+{id:"pendulum",name:"Pendulum Lab",desc:"Change the length, gravity, and swing size, and measure the period.",tags:["Physics"],url:"https://claude.ai/artifact/BTJsu3y815zSopfyNf4AeZ",h:30},
+{id:"circuit",name:"Circuit Lab",desc:"Build series and parallel circuits and see how bulbs respond.",tags:["Physics"],url:"https://claude.ai/artifact/Px24kLU9j4Z1wWPQ4QxyVo",h:50},
+{id:"cell",name:"Cell Explorer",desc:"Spin a 3D animal or plant cell, tap each part, and take a quiz.",tags:["Biology"],url:"https://claude.ai/artifact/2xRqSjEZgZijFa7WAvU2kL",h:120},
+{id:"dna",name:"DNA Helix",desc:"Pair the bases, copy a gene to RNA, and build a protein.",tags:["Biology"],url:"https://claude.ai/artifact/Emq1ZKNE4BG3vaNbTG5aTr",h:300},
+{id:"selection",name:"Natural Selection",desc:"Watch moths adapt to their surroundings over generations.",tags:["Biology"],url:"https://claude.ai/artifact/A4sp62zgheDgDUeeDnmA9k",h:85},
+{id:"moon",name:"Moon Phases & Eclipses",desc:"See why the Moon changes shape and when eclipses happen.",tags:["Space"],url:"https://claude.ai/artifact/GdEHv51Jo6yZ5EdSpEVTj1",h:215},
+{id:"scale",name:"Scale of the Universe",desc:"Zoom from a proton all the way out to the whole universe.",tags:["Space"],url:"https://claude.ai/artifact/5NLnhxv15WUy2aATzSdNxN",h:250},
+{id:"tectonics",name:"Plate Tectonics",desc:"See how moving plates build mountains, volcanoes, and quakes.",tags:["Earth"],url:"https://claude.ai/artifact/4sVJKiVFrXctWqjeKfH9JX",h:15}
+];
+const TOPICS=["All","Space","Chemistry","Physics","Biology","Earth"];
+const KEY="home-v1";
+let S={pins:[],last:null},topic="All",query="";
+try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(d)S=Object.assign(S,d)}catch(e){}
+S.pins=S.pins.filter(id=>APPS.some(a=>a.id===id));if(!APPS.some(a=>a.id===S.last))S.last=null;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+const ART={
+solar:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><g fill="none" stroke="#fff" stroke-opacity=".35"><circle cx="160" cy="75" r="26"/><circle cx="160" cy="75" r="44"/><circle cx="160" cy="75" r="62"/></g><circle cx="160" cy="75" r="13" fill="#F4C430"/><g><circle cx="186" cy="75" r="4" fill="#C1583A"/><animateTransform attributeName="transform" type="rotate" from="0 160 75" to="360 160 75" dur="6s" repeatCount="indefinite"/></g><g><circle cx="204" cy="75" r="6" fill="#4A90D9"/><animateTransform attributeName="transform" type="rotate" from="120 160 75" to="480 160 75" dur="11s" repeatCount="indefinite"/></g><g><circle cx="222" cy="75" r="7.5" fill="#D9A066"/><ellipse cx="222" cy="75" rx="13" ry="3.5" fill="none" stroke="#E4D191" stroke-width="1.5"/><animateTransform attributeName="transform" type="rotate" from="240 160 75" to="600 160 75" dur="18s" repeatCount="indefinite"/></g></svg>`,
+periodic:()=>{let t="";const hs=[5,28,48,95,150,185,215,260,300];for(let r=0;r<3;r++)for(let c=0;c<9;c++){const h=hs[(c+r*2)%9];const x=40+c*28,y=22+r*30;t+=`<rect x="${x}" y="${y}" width="25" height="26" rx="5" fill="hsl(${h} 70% 62%)" opacity="${r===1&&c===4?0:.75}"/>`}
+ return`<svg viewBox="0 0 320 150" aria-hidden="true">${t}<rect x="124" y="52" width="72" height="76" rx="10" fill="#fff"/><text x="160" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="36" fill="#141B2D">Fe</text><text x="132" y="68" font-size="11" fill="#5C6578" font-family="Figtree,sans-serif">26</text></svg>`}
+};
+Object.assign(ART,{
+molecule:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><g stroke="#C9CFDD" stroke-width="7" stroke-linecap="round"><path d="M160 82L110 54M160 82L210 54"/></g><circle cx="160" cy="84" r="26" fill="#E5484D"/><circle cx="108" cy="52" r="16" fill="#fff"/><circle cx="212" cy="52" r="16" fill="#fff"/><circle cx="152" cy="76" r="8" fill="#fff" opacity=".35"/></svg>`,
+gravity:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><path d="M40 112C90 18 230 18 282 100" fill="none" stroke="#fff" stroke-opacity=".45" stroke-dasharray="4 5" stroke-width="2"/><circle cx="160" cy="75" r="15" fill="#F4C430"/><circle cx="108" cy="46" r="6" fill="#6FA8F0"/><circle cx="242" cy="48" r="9" fill="#D9A066"/><circle cx="196" cy="110" r="4" fill="#C3CCE0"/></svg>`,
+pendulum:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><path d="M112 112A104 104 0 0 0 208 112" fill="none" stroke="#fff" stroke-opacity=".45" stroke-dasharray="4 5" stroke-width="2"/><path d="M160 20L112 112" stroke="#fff" stroke-width="3" stroke-linecap="round"/><rect x="134" y="14" width="52" height="7" rx="3" fill="#fff" opacity=".85"/><circle cx="112" cy="112" r="14" fill="#F0A24B"/><circle cx="208" cy="112" r="14" fill="#F0A24B" opacity=".3"/></svg>`,
+circuit:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><rect x="60" y="32" width="200" height="90" rx="14" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="5"/><circle cx="160" cy="32" r="42" fill="#FFE27A" opacity=".28"/><circle cx="160" cy="32" r="21" fill="#FFE27A"/><path d="M152 40l3-9 5 6 5-6 3 9" stroke="#fff" stroke-width="2" fill="none"/><rect x="48" y="60" width="24" height="34" rx="4" fill="#1B2545"/><path d="M52 70h16M56 82h8" stroke="#fff" stroke-width="4"/><g fill="#F4C430"><circle cx="110" cy="122" r="3.5"/><circle cx="160" cy="122" r="3.5"/><circle cx="210" cy="122" r="3.5"/><circle cx="260" cy="90" r="3.5"/></g></svg>`,
+cell:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><circle cx="160" cy="75" r="62" fill="#fff" fill-opacity=".35" stroke="#2E6B4E" stroke-width="5"/><circle cx="160" cy="72" r="20" fill="#C77DFF"/><circle cx="165" cy="76" r="7" fill="#5B2A86"/><ellipse cx="116" cy="94" rx="14" ry="8" fill="#F2784B" transform="rotate(-25 116 94)"/><ellipse cx="206" cy="104" rx="13" ry="7" fill="#F2784B" transform="rotate(20 206 104)"/><ellipse cx="202" cy="50" rx="12" ry="7" fill="#F2784B"/><path d="M116 56q8-10 16 0t16 0" stroke="#2CB5A0" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="150" cy="116" r="6" fill="#7ED957"/></svg>`,
+dna:()=>{let r="",a="M",b="M";for(let i=0;i<=16;i++){const x=40+i*15,y=Math.sin(i*.65)*30;r+=`<line x1="${x}" y1="${75-y}" x2="${x}" y2="${75+y}" stroke="${["#E5484D","#F4C430","#2CB5E8","#4CAF7A"][i%4]}" stroke-width="5" stroke-linecap="round"/>`}
+ for(let j=0;j<=64;j++){const x=40+j*3.75,y=Math.sin(j*.1625)*30;a+=(j?"L":"")+x+" "+(75-y)+" ";b+=(j?"L":"")+x+" "+(75+y)+" "}
+ return`<svg viewBox="0 0 320 150" aria-hidden="true">${r}<path d="${a}" fill="none" stroke="#fff" stroke-width="5"/><path d="${b}" fill="none" stroke="#fff" stroke-width="5" opacity=".7"/></svg>`},
+selection:()=>{const m=(x,y,r,c)=>`<g transform="translate(${x} ${y}) rotate(${r})"><ellipse cx="0" cy="-9" rx="21" ry="9" fill="${c}" stroke="#000" stroke-opacity=".25"/><ellipse cx="0" cy="9" rx="21" ry="9" fill="${c}" stroke="#000" stroke-opacity=".25"/></g>`;
+ return`<svg viewBox="0 0 320 150" aria-hidden="true"><rect x="40" y="10" width="240" height="130" rx="14" fill="#B9B2A3"/><path d="M80 10v130M140 10v130M200 10v130M250 10v130" stroke="#000" stroke-opacity=".1" stroke-width="3"/>${m(110,58,20,"#F2EFE6")}${m(214,96,-30,"#3B352E")}${m(168,46,70,"#B2AB9C")}${m(98,112,100,"#B8B1A2")}</svg>`},
+moon:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><circle cx="160" cy="75" r="46" fill="#2A3350"/><path d="M160 29A46 46 0 0 1 160 121A30 46 0 0 0 160 29Z" fill="#ECE8D8"/><g fill="#fff"><circle cx="50" cy="30" r="2"/><circle cx="270" cy="40" r="2.5"/><circle cx="240" cy="118" r="2"/><circle cx="76" cy="112" r="2.5"/></g></svg>`,
+scale:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><g fill="none" stroke-width="3"><circle cx="160" cy="75" r="66" stroke="#fff" stroke-opacity=".35"/><circle cx="160" cy="75" r="48" stroke="#9AD0FF"/><circle cx="160" cy="75" r="30" stroke="#8FD0A8"/><circle cx="160" cy="75" r="14" stroke="#F4C430"/></g><circle cx="160" cy="75" r="3" fill="#fff"/></svg>`,
+tectonics:()=>`<svg viewBox="0 0 320 150" aria-hidden="true"><rect x="0" y="100" width="320" height="50" fill="#E0622A"/><rect x="0" y="76" width="140" height="24" fill="#7A6A58"/><rect x="180" y="76" width="140" height="24" fill="#7A6A58"/><path d="M134 76L160 24L186 76Z" fill="#8A7A66"/><path d="M151 42L160 24L169 42Z" fill="#fff"/><path d="M60 62h30M260 62h-30" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`
+});
+function hello(){
+  const d=new Date(),h=d.getHours();
+  $("hello").textContent=h<5?"Up late?":h<12?"Good morning":h<18?"Good afternoon":"Good evening";
+  $("date").textContent=d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
+}
+function chips(){
+  $("chips").innerHTML=TOPICS.map(t=>`<button class="chip" data-t="${t}" aria-pressed="${t===topic}">${t}</button>`).join("");
+}
+function resume(){
+  const a=APPS.find(x=>x.id===S.last);
+  $("resume").innerHTML=a?`<div class="resume"><span>Pick up where you left off: <b>${a.name}</b></span><a href="${a.url}" target="_blank" rel="noopener noreferrer" data-id="${a.id}">Resume</a></div>`:"";
+}
+function grid(){
+  const q=query.trim().toLowerCase();
+  let list=APPS.filter(a=>(topic==="All"||a.tags.includes(topic))&&(!q||(a.name+" "+a.desc+" "+a.tags.join(" ")).toLowerCase().includes(q)));
+  list=list.map((a,i)=>({a,i})).sort((x,y)=>(S.pins.includes(y.a.id)-S.pins.includes(x.a.id))||x.i-y.i).map(x=>x.a);
+  $("grid").innerHTML=list.length?list.map(a=>{
+    const pinned=S.pins.includes(a.id);
+    return`<article class="app" style="--h:${a.h}"><a href="${a.url}" target="_blank" rel="noopener noreferrer" data-id="${a.id}"><div class="art">${ART[a.id]()}</div><div class="body"><h2>${a.name}</h2><p>${a.desc}</p><div class="row"><div class="tags">${a.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div><span class="go">Open →</span></div></div></a>${pinned?'<span class="badge">Pinned</span>':""}<button class="pin" data-pin="${a.id}" aria-pressed="${pinned}" aria-label="${pinned?"Unpin":"Pin"} ${a.name}">${pinned?"★":"☆"}</button></article>`}).join("")
+   :`<div class="empty">No apps match “${query.trim()||topic}”.<br><button data-clear>Clear search</button></div>`;
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)document.querySelectorAll("animateTransform").forEach(n=>n.remove());
+}
+document.addEventListener("click",e=>{
+  const p=e.target.closest("[data-pin]");
+  if(p){const id=p.dataset.pin;S.pins=S.pins.includes(id)?S.pins.filter(x=>x!==id):S.pins.concat(id);save();grid();return}
+  const c=e.target.closest(".chip");
+  if(c){topic=c.dataset.t;chips();grid();return}
+  if(e.target.closest("[data-clear]")){query="";topic="All";$("q").value="";chips();grid();return}
+  const l=e.target.closest("a[data-id]");
+  if(l){S.last=l.dataset.id;save();setTimeout(resume,300)}
+});
+$("q").addEventListener("input",e=>{query=e.target.value;grid()});
+document.addEventListener("keydown",e=>{
+  if(e.key==="/"&&!e.target.matches("input")){e.preventDefault();$("q").focus()}
+  else if(e.key==="Escape"&&e.target===$("q")){$("q").value="";query="";grid();$("q").blur()}
+});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)hello()});
+hello();chips();resume();grid();
+</script>
+</body>
+</html>
